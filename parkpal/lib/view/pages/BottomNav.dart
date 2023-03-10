@@ -9,7 +9,7 @@ class BottomNav extends StatefulWidget {
 class _BottomNav extends State<BottomNav> {
   late GoogleMapController mapController;
 
-  final LatLng _center = const LatLng(45.521563, -122.677433);
+  final LatLng _center = const LatLng(43.532723980199435, -80.22618390079778);
 
   void _onMapCreated(GoogleMapController controller) {
     mapController = controller;
@@ -21,7 +21,10 @@ class _BottomNav extends State<BottomNav> {
         title: Text("Park Pal"),
         backgroundColor: Colors.red[800],
       ),
-      body: GoogleMap(onMapCreated: _onMapCreated, initialCameraPosition: CameraPosition(target: _center, zoom:11.0),),
+      body: GoogleMap(onMapCreated: _onMapCreated, initialCameraPosition: CameraPosition(
+        target: _center, 
+        zoom:15.0),
+      ),
       bottomNavigationBar: BottomNavigationBar(
         items: [
           BottomNavigationBarItem(
