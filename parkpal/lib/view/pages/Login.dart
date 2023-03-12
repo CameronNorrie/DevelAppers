@@ -34,10 +34,12 @@ class _Login extends State<Login> {
               Padding(
                 padding: EdgeInsets.symmetric(horizontal: 15),
                 child: TextField(
+
                   decoration: InputDecoration(
                     enabledBorder: OutlineInputBorder(borderSide: BorderSide(width: 1, color: Colors.black),),
                     focusedBorder: OutlineInputBorder(borderSide: BorderSide(width: 1, color: Colors.black),),
-                    labelText: 'Email'
+                    labelText: 'Email',
+                    floatingLabelStyle: TextStyle(color: Colors.red)
                   ),
                 ),
               ),
@@ -49,6 +51,7 @@ class _Login extends State<Login> {
                     enabledBorder: OutlineInputBorder(borderSide: BorderSide(width: 1, color: Colors.black),),
                     focusedBorder: OutlineInputBorder(borderSide: BorderSide(width: 1, color: Colors.black),),
                     labelText: 'Password',
+                    floatingLabelStyle: TextStyle(color: Colors.red)
                   ),
                 ),
               ),
