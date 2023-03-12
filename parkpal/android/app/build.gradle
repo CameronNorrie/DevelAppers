@@ -74,6 +74,7 @@ android {
     defaultConfig {
         applicationId "com.example.parkpal"
         minSdkVersion 20
+        compileSdkVersion 33
         targetSdkVersion flutter.targetSdkVersion
         versionCode flutterVersionCode.toInteger()
         versionName flutterVersionName
