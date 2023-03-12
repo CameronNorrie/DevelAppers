@@ -35,20 +35,21 @@ class _Login extends State<Login> {
                 padding: EdgeInsets.symmetric(horizontal: 15),
                 child: TextField(
                   decoration: InputDecoration(
-                      border: OutlineInputBorder(),
-                      labelText: 'Email'),
-              )),
+                    enabledBorder: OutlineInputBorder(borderSide: BorderSide(width: 1, color: Colors.black),),
+                    focusedBorder: OutlineInputBorder(borderSide: BorderSide(width: 1, color: Colors.black),),
+                    labelText: 'Email'
+                  ),
+                ),
+              ),
               Padding(
-                padding: EdgeInsets.only(
-                    left: 15.0, right: 15.0, top: 15, bottom: 0),
-                //padding: EdgeInsets.symmetric(horizontal: 15),
+                padding: EdgeInsets.only(left: 15.0, right: 15.0, top: 15, bottom: 0),
                 child: TextField(
-
                   obscureText: true,
                   decoration: InputDecoration(
-                      border: OutlineInputBorder(),
-                      labelText: 'Password',
-                    ),
+                    enabledBorder: OutlineInputBorder(borderSide: BorderSide(width: 1, color: Colors.black),),
+                    focusedBorder: OutlineInputBorder(borderSide: BorderSide(width: 1, color: Colors.black),),
+                    labelText: 'Password',
+                  ),
                 ),
               ),
               TextButton(

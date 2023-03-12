@@ -23,17 +23,6 @@ class _AppState extends State<MyApp> {
   Widget build(BuildContext context){
     return MaterialApp(
       title: "Park Pal",
-      theme: ThemeData(
-      primarySwatch: Colors.red,
-      inputDecorationTheme: InputDecorationTheme(
-        enabledBorder: OutlineInputBorder(
-          borderSide: BorderSide(width: 2, color: Colors.black),
-        ),
-        focusedBorder: OutlineInputBorder(
-          borderSide: BorderSide(width: 2, color: Colors.black),
-        ),
-      ),
-    ),
       home: Login(),
     );
   }
