@@ -2,49 +2,54 @@ import 'package:flutter/material.dart';
 
 
 Widget history(){
-  return Center(
-    child: SingleChildScrollView( child: Column( 
+  return SingleChildScrollView( 
+    child: Column( 
       children: [
-        Text(
-          "Past Spots",
-          style: TextStyle(
-          color: Colors.white,
-          fontSize: 60,
-          ),
-      textAlign: TextAlign.start,
-    ),
-      ListView(
-        children: [
-          ListTile(
+        SafeArea(
+          child: Text(
+            "Past Spots",
+            style: TextStyle(
+              decoration: TextDecoration.underline,
+              color: Colors.black,
+              fontSize: 40,
+            ),
+            textAlign: TextAlign.left,
+          )
+        ),
+        ListView(
+          scrollDirection: Axis.vertical,
+          shrinkWrap: true,
+          children: [
+            ListTile(
               leading: Image.network(
-                "https://assets.bwbx.io/images/users/iqjWHBFdfxIU/intTFNX2AHxk/v0/-1x-1.jpg",
-                height: 40,
-                width: 70,
-                fit: BoxFit.fill
+                  "https://assets.bwbx.io/images/users/iqjWHBFdfxIU/intTFNX2AHxk/v0/-1x-1.jpg",
+                  height: 40,
+                  width: 70,
+                  fit: BoxFit.fill
                 ),
               title: Text(
-                'Walmart Plaza', 
-                style: TextStyle(
-                      color: Colors.black,
-                      fontSize: 30,
-                    ),
-              ),
+                  'Walmart Plaza', 
+                  style: TextStyle(
+                    color: Colors.black,
+                    fontSize: 30,
+                  ),
+                ),
               subtitle: RichText(
                 text: TextSpan(
-                style: TextStyle(
-                      color: Colors.black,
-                      fontSize: 15,
-                    ),
-                children: [
-                  TextSpan(text: '1km | 20% | '),
+                  style: TextStyle(
+                    color: Colors.black,
+                    fontSize: 15,
+                  ),
+                  children: [
+                    TextSpan(text: '1km | 20% | '),
                     WidgetSpan(
                       child: Padding(
-                      padding: const EdgeInsets.symmetric(horizontal: 2.0),
-                      child: Icon(Icons.arrow_upward_rounded),
+                        padding: const EdgeInsets.symmetric(horizontal: 2.0),
+                        child: Icon(Icons.arrow_upward_rounded),
                       ),
                     ),
-                  TextSpan(text: '450'),
-                ],
+                    TextSpan(text: '450'),
+                  ],
                 ),
               ),
               trailing: Icon(Icons.arrow_forward_ios_rounded),
@@ -56,30 +61,30 @@ Widget history(){
                 height: 40,
                 width: 70,
                 fit: BoxFit.fill
-                ),
+              ),
               title: Text(
                 'Arboretum', 
                 style: TextStyle(
-                      color: Colors.black,
-                      fontSize: 30,
-                    ),
+                  color: Colors.black,
+                  fontSize: 30,
+                ),
               ),
               subtitle: RichText(
                 text: TextSpan(
-                style: TextStyle(
-                      color: Colors.black,
-                      fontSize: 15,
-                    ),
-                children: [
-                  TextSpan(text: '500m | 80% | '),
+                  style: TextStyle(
+                    color: Colors.black,
+                    fontSize: 15,
+                  ),
+                  children: [
+                    TextSpan(text: '500m | 80% | '),
                     WidgetSpan(
                       child: Padding(
-                      padding: const EdgeInsets.symmetric(horizontal: 2.0),
-                      child: Icon(Icons.arrow_upward_rounded),
+                        padding: const EdgeInsets.symmetric(horizontal: 2.0),
+                        child: Icon(Icons.arrow_upward_rounded),
                       ),
                     ),
-                  TextSpan(text: '60'),
-                ],
+                    TextSpan(text: '60'),
+                  ],
                 ),
               ),
               trailing: Icon(Icons.arrow_forward_ios_rounded),
@@ -87,7 +92,6 @@ Widget history(){
           ],
         )
       ],
-      )
     )
-      );
+  );
 }
