@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'myMap.dart';
 import 'Settings.dart';
+import 'History.dart';
 class BottomNav extends StatefulWidget {
   @override
   State<BottomNav> createState() => _BottomNav();
@@ -8,7 +9,7 @@ class BottomNav extends StatefulWidget {
 
 class _BottomNav extends State<BottomNav> {
   int selectedIndex = 1;
-  final List<Widget> pages = [settings(), mapPage(), settings()];
+  final List<Widget> pages = [history(), mapPage(), settings()];
   void _onItemTapped(int index){
     setState(() {
       selectedIndex = index;
