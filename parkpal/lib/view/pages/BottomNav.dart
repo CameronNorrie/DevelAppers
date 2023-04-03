@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:firebase_auth/firebase_auth.dart';
 import 'myMap.dart';
 import 'Settings.dart';
 import 'History.dart';

@@ -1,7 +1,9 @@
 
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import './view/pages/Login.dart';
+import './view/pages/BottomNav.dart';
 import 'package:google_maps_flutter_android/google_maps_flutter_android.dart';
 import 'package:google_maps_flutter_platform_interface/google_maps_flutter_platform_interface.dart';
 import 'package:firebase_core/firebase_core.dart';
@@ -36,7 +38,25 @@ class _AppState extends State<MyApp> {
   Widget build(BuildContext context){
     return MaterialApp(
       title: "Park Pal",
-      home: Login(),
+      home: MainPage(),
+    );
+  }
+}
+class MainPage extends StatelessWidget {
+  @override
+  Widget build(BuildContext context){
+    return Scaffold(
+      body: StreamBuilder<User?>(
+        stream: FirebaseAuth.instance.authStateChanges(),
+        builder: (context, snapshot){
+          if(snapshot.hasData){
+            return BottomNav();
+          }
+          else{
+            return Login();
+          }
+        }
+      ),
     );
   }
 }

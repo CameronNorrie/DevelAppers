@@ -1,13 +1,41 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'BottomNav.dart';
-
+import 'createAccount.dart';
+import 'package:firebase_auth/firebase_auth.dart';
 class Login extends StatefulWidget {
   @override
   State<Login> createState() => _Login();
 }
 
 class _Login extends State<Login> {
+  final emailController = TextEditingController();
+  final passwordController = TextEditingController();
+  @override
+  void dispose() {
+    emailController.dispose();
+    passwordController.dispose();
+  }
+  Future signIn() async {
+    await FirebaseAuth.instance.signInWithEmailAndPassword(
+      email: emailController.text.trim(),
+      password: passwordController.text.trim()
+    );
+  }
+  Widget login(String text, TextEditingController controller){
+    return Padding(
+                padding: EdgeInsets.symmetric(horizontal: 15, vertical: 5),
+                child: TextField(
+                  controller: controller,
+                  decoration: InputDecoration(
+                    enabledBorder: OutlineInputBorder(borderSide: BorderSide(width: 1, color: Colors.black),),
+                    focusedBorder: OutlineInputBorder(borderSide: BorderSide(width: 1, color: Colors.black),),
+                    labelText: text,
+                    floatingLabelStyle: TextStyle(color: Colors.red)
+                  ),
+                ),
+              );
+  }
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -31,48 +59,18 @@ class _Login extends State<Login> {
                       child: Image.asset('asset/images/car.gif')),
                 ),
               ),
-              Padding(
-                padding: EdgeInsets.symmetric(horizontal: 15),
-                child: TextField(
-
-                  decoration: InputDecoration(
-                    enabledBorder: OutlineInputBorder(borderSide: BorderSide(width: 1, color: Colors.black),),
-                    focusedBorder: OutlineInputBorder(borderSide: BorderSide(width: 1, color: Colors.black),),
-                    labelText: 'Email',
-                    floatingLabelStyle: TextStyle(color: Colors.red)
-                  ),
-                ),
-              ),
-              Padding(
-                padding: EdgeInsets.only(left: 15.0, right: 15.0, top: 15, bottom: 0),
-                child: TextField(
-                  obscureText: true,
-                  decoration: InputDecoration(
-                    enabledBorder: OutlineInputBorder(borderSide: BorderSide(width: 1, color: Colors.black),),
-                    focusedBorder: OutlineInputBorder(borderSide: BorderSide(width: 1, color: Colors.black),),
-                    labelText: 'Password',
-                    floatingLabelStyle: TextStyle(color: Colors.red)
-                  ),
-                ),
-              ),
-              TextButton(
-                onPressed: (){
-                  //TODO FORGOT PASSWORD SCREEN GOES HERE
-                },
-                child: Text(
-                  'Forgot Password',
-                  style: TextStyle(color: Colors.red, fontSize: 15),
-                ),
-              ),
-                        Container(
+              login("Email", emailController),
+              login("Password", passwordController),
+              Container(
                 height: 50,
                 width: 250,
                 decoration: BoxDecoration(
                     color: Colors.red, borderRadius: BorderRadius.circular(20)),
                 child: TextButton(
                   onPressed: () {
-                    Navigator.push(
-                        context, MaterialPageRoute(builder: (_) => BottomNav()));
+                    signIn();
+                    //Navigator.push(
+                     //   context, MaterialPageRoute(builder: (_) => BottomNav()));
                   },
                   child: Text(
                     'Login',
@@ -83,7 +81,16 @@ class _Login extends State<Login> {
               SizedBox(
                 height: 130,
               ),
-              Text('New User? Create Account')
+              TextButton(
+                onPressed: () {
+                  Navigator.push(
+                      context, MaterialPageRoute(builder: (_) => CreateAccount()));
+                },
+                child: Text(
+                  'New User? Create Account',
+                  style: TextStyle(color: Colors.black, fontSize: 15),
+                ),
+              ),
           ],
         ),
       )),

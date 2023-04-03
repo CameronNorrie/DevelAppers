@@ -1,3 +1,4 @@
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 
 Widget settings() {
@@ -40,6 +41,7 @@ Widget settings() {
         shape: Border(bottom: BorderSide()),
         trailing: Icon(Icons.arrow_forward_ios),
       ),
+      TextButton(onPressed: () => FirebaseAuth.instance.signOut(), child: Text("logout"))
     ],
   ));
 }
