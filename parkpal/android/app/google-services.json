@@ -1,0 +1,46 @@
+{
+  "project_info": {
+    "project_number": "58094377515",
+    "project_id": "develappers",
+    "storage_bucket": "develappers.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:58094377515:android:8105b17dbbd041beab686e",
+        "android_client_info": {
+          "package_name": "com.example.parkpal"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "58094377515-qu3c42328p0pngkiek2foolvjkjvli3h.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyBoCijo2-5KkoZQ3gOJZm0EZw7CjCI8_fc"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "58094377515-qu3c42328p0pngkiek2foolvjkjvli3h.apps.googleusercontent.com",
+              "client_type": 3
+            },
+            {
+              "client_id": "58094377515-lra8hmsklnu0c5asu64rpolr2kph9b3r.apps.googleusercontent.com",
+              "client_type": 2,
+              "ios_info": {
+                "bundle_id": "com.example.parkpal"
+              }
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
