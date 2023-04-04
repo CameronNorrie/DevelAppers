@@ -81,7 +81,8 @@ class _CreateAccount extends State<CreateAccount> {
                             users.doc(user.uid).set(
                               {
                                 'username': usernameController.text,
-                                'email': emailController.text
+                                'email': emailController.text,
+                                'image': ""
                               }
                             )
                           }
