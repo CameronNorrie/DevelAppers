@@ -13,6 +13,7 @@ class _Login extends State<Login> {
   final passwordController = TextEditingController();
   @override
   void dispose() {
+    super.dispose();
     emailController.dispose();
     passwordController.dispose();
   }

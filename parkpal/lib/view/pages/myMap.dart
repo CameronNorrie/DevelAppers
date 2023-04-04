@@ -125,7 +125,14 @@ class _myMap extends State<myMap> {
             return Text("loading");
           }
           else{
-            
+            if(snapshot.data?.docs == null){
+              return GoogleMap(
+              onMapCreated: _onMapCreated,
+              initialCameraPosition: CameraPosition(target: _center, zoom: 15.0),
+              onLongPress: (latlang) {
+                _addMarkerLongPressed(latlang);
+              });
+            }
             snapshot.data?.docs.forEach((doc) {
               MarkerId markerId = MarkerId(doc.id);
               Marker marker = Marker(

@@ -28,10 +28,10 @@ class _AccountState extends State<Account> {
             children: [
               Center(child:Text("Account", style: TextStyle(fontSize: 40))),
               Container(
-                padding: EdgeInsets.only(top:80),
+                padding: EdgeInsets.only(top:80, left: 10, right: 10),
                 child: Column(
                   children: [
-                    Text("Username"),
+                    Text("Username", style: TextStyle(fontSize: 20)),
                     TextField(
                       controller: usernameController,
                       decoration: InputDecoration(
@@ -47,9 +47,10 @@ class _AccountState extends State<Account> {
                 padding: EdgeInsets.only(top:20),
                 child: Column(
                   children: [
-                    Text("Profile Picture"),
+                    Text("Profile Picture", style: TextStyle(fontSize: 20)),
                     IconButton(
-                      icon: Icon(Icons.abc_sharp), 
+                      iconSize: 100,
+                      icon: Image.asset("asset/images/profile.png"), 
                       onPressed: () async {
                         ImagePicker imagePicker=ImagePicker();
                         XFile? file = await imagePicker.pickImage(source: ImageSource.gallery);

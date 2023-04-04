@@ -22,6 +22,7 @@ class _CreateAccount extends State<CreateAccount> {
   
   @override
   void dispose() {
+    super.dispose();
     emailController.dispose();
     passwordController.dispose();
     usernameController.dispose();
