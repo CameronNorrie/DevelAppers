@@ -1,6 +1,9 @@
+import 'dart:developer';
+
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:firebase_auth/firebase_auth.dart';
+import 'package:cloud_firestore/cloud_firestore.dart';
 import 'BottomNav.dart';
 
 
@@ -10,6 +13,19 @@ class CreateAccount extends StatefulWidget {
 }
 
 class _CreateAccount extends State<CreateAccount> {
+  
+  
+  final emailController = TextEditingController();
+  final passwordController = TextEditingController();
+  final usernameController = TextEditingController();
+  CollectionReference users = FirebaseFirestore.instance.collection('users');
+  
+  @override
+  void dispose() {
+    emailController.dispose();
+    passwordController.dispose();
+    usernameController.dispose();
+  }
   Widget inputField(String label, TextEditingController controller) {
     return Padding(
       padding: EdgeInsets.symmetric(horizontal: 15, vertical: 5),
@@ -30,13 +46,6 @@ class _CreateAccount extends State<CreateAccount> {
       password: passwordController.text.trim()
     );
   }
-  final emailController = TextEditingController();
-  final passwordController = TextEditingController();
-  @override
-  void dispose() {
-    emailController.dispose();
-    passwordController.dispose();
-  }
   @override
   Widget build(BuildContext context) {
     
@@ -53,6 +62,7 @@ class _CreateAccount extends State<CreateAccount> {
                   fontWeight: FontWeight.w600
                 )),
               ),
+              inputField("Username",usernameController),
               inputField("Email",emailController),
               inputField("Password",passwordController),
               Padding(padding: const EdgeInsets.only(top: 10)),
@@ -64,6 +74,20 @@ class _CreateAccount extends State<CreateAccount> {
                 child: TextButton(
                   onPressed: () {
                     createFirebaseAccount();
+                    FirebaseAuth.instance.userChanges().listen((User? user) {
+                      if(user != null){
+                        users.doc(user.uid).get().then((snapshot) => {
+                          if(!snapshot.exists) {
+                            users.doc(user.uid).set(
+                              {
+                                'username': usernameController.text,
+                                'email': emailController.text
+                              }
+                            )
+                          }
+                        });
+                      }
+                    });
                     Navigator.pop(context);
                   },
                   child: Text(

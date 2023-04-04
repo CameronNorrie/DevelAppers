@@ -1,8 +1,36 @@
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
+import 'package:cloud_firestore/cloud_firestore.dart';
+import 'account.dart';
 
-Widget settings() {
-  return SafeArea(
+class Settings extends StatefulWidget {
+
+  @override
+  State<Settings> createState() => _SettingsState();
+}
+
+
+class _SettingsState extends State<Settings> {
+  String username = "";
+  @override
+  void initState(){
+    super.initState();
+    final uid = FirebaseAuth.instance.currentUser?.uid;
+    
+    DocumentReference thisUser = FirebaseFirestore.instance.collection('users').doc(uid);
+    thisUser.get().then(
+      (DocumentSnapshot doc) {
+        final data = doc.data() as Map<String, dynamic>;
+        setState(() {
+          username = data['username'];
+        });
+      }
+    );
+  }
+
+  @override
+  Widget build(BuildContext context) {
+    return SafeArea(
       child: Column(
     children: [
       Container(
@@ -17,7 +45,7 @@ Widget settings() {
           Expanded(
               flex: 7,
               child: Text(
-                "John Doe",
+                username,
                 style: TextStyle(fontSize: 30),
                 textAlign: TextAlign.center,
               ))
@@ -39,9 +67,14 @@ Widget settings() {
       ListTile(
         title: Text("Account"),
         shape: Border(bottom: BorderSide()),
-        trailing: Icon(Icons.arrow_forward_ios),
+        trailing: IconButton(icon:Icon(Icons.arrow_forward_ios), onPressed: () {
+          Navigator.push(
+            context, MaterialPageRoute(builder: (context) => Account())
+          );
+        },),
       ),
       TextButton(onPressed: () => FirebaseAuth.instance.signOut(), child: Text("logout"))
     ],
   ));
+  }
 }
