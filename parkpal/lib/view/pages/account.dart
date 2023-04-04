@@ -59,7 +59,7 @@ class _AccountState extends State<Account> {
                         Reference images = root.child('images');
                         Reference referenceImage = images.child(uniqueFile);
                         try{
-                          await referenceImage.putFile(File(file!.path));
+                          await referenceImage.putFile(File(file.path));
                           imageUrl = await referenceImage.getDownloadURL();
                         }catch(error){
                           print(error);
