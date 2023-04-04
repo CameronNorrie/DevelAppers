@@ -12,6 +12,8 @@ class Settings extends StatefulWidget {
 
 class _SettingsState extends State<Settings> {
   String username = "";
+  String imageUrl = "";
+  bool test = false;
   @override
   void initState(){
     super.initState();
@@ -23,6 +25,7 @@ class _SettingsState extends State<Settings> {
         final data = doc.data() as Map<String, dynamic>;
         setState(() {
           username = data['username'];
+          imageUrl = data['image'];
         });
       }
     );
@@ -39,7 +42,7 @@ class _SettingsState extends State<Settings> {
           Expanded(
               flex: 3,
               child: CircleAvatar(
-                backgroundImage: AssetImage("asset/images/profile.png"),
+                backgroundImage: imageUrl.isEmpty ? AssetImage("asset/images/profile.png") : NetworkImage(imageUrl) as ImageProvider,
                 radius: 40,
               )),
           Expanded(
@@ -67,10 +70,11 @@ class _SettingsState extends State<Settings> {
       ListTile(
         title: Text("Account"),
         shape: Border(bottom: BorderSide()),
-        trailing: IconButton(icon:Icon(Icons.arrow_forward_ios), onPressed: () {
+        trailing: IconButton(icon:Icon(Icons.arrow_forward_ios), onPressed: () async {
           Navigator.push(
             context, MaterialPageRoute(builder: (context) => Account())
-          );
+          ).then((value) => setState((){}));
+          
         },),
       ),
       TextButton(onPressed: () => FirebaseAuth.instance.signOut(), child: Text("logout"))
