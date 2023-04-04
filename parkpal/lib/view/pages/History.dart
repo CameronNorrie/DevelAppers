@@ -10,18 +10,63 @@ class History extends StatefulWidget {
 }
 
 class _HistoryState extends State<History> {
+  final uid = FirebaseAuth.instance.currentUser?.uid;
+    CollectionReference markers = FirebaseFirestore.instance.collection('markers');
+
+  Stream buildFromFireStore(List<dynamic> ids){
+    return FirebaseFirestore.instance.collection('markers').where(FieldPath.documentId, whereIn: ids).snapshots();
+  }
   @override
   Widget build(BuildContext context) {
-    final uid = FirebaseAuth.instance.currentUser?.uid;
-    CollectionReference history =
-        FirebaseFirestore.instance.collection("history");
-    List<String> markerIDs;
-    history.doc(uid).get().then((DocumentSnapshot doc) {
-      final data = doc.data() as Map<String, dynamic>;
-      setState(() {
-        markerIDs = data["user_history"];
-      });
-    });
+    return SingleChildScrollView(
+      child: Column(
+        children: [
+          SafeArea(
+            child: Text("Past Spots",
+              style: TextStyle(
+                decoration: TextDecoration.underline,
+                color: Colors.black,
+                fontSize: 40,
+              ),
+              textAlign: TextAlign.left,
+            )),
+          FutureBuilder(
+            future: FirebaseFirestore.instance.collection('history').doc(uid).get(),
+            builder: (context, snapshot) {
+              if(!snapshot.hasData){
+                return CircularProgressIndicator();
+              }
+              List<dynamic> markerIds = snapshot.data!['user_history'];
+              return StreamBuilder(
+                stream: buildFromFireStore(markerIds),
+                builder: (context, snapshot) {
+                  if (snapshot.connectionState == ConnectionState.waiting) {
+                    return CircularProgressIndicator();
+                  }
+                  
+                  return ListView.builder(
+                    shrinkWrap: true,
+                    physics: NeverScrollableScrollPhysics(),
+                    itemCount: snapshot.data.docs.length,
+                    itemBuilder: (context, index) {
+                      var currentDoc = snapshot.data.docs[index];
+                      return ListTile(
+                        title: Text("${currentDoc['name']}", style: TextStyle(fontSize: 30),)
+                      );
+                    },
+                   
+                  );
+                }
+              );
+            }
+          )
+        ],
+      ),
+    ); 
+  }
+}
+
+/*print(markerIDs);
 
     Stream<DocumentSnapshot> recordStream =
         FirebaseFirestore.instance.collection('history').doc(uid).snapshots();
@@ -111,9 +156,9 @@ class _HistoryState extends State<History> {
             ),
           ],
         ),
-        ListView(
-          children: [],
-        )
+        // ListView(
+        //   children: [],
+        // )
         // StreamBuilder(
         //     stream: recordStream,
         //     builder: (BuildContext context,
@@ -136,6 +181,4 @@ class _HistoryState extends State<History> {
         //       }
         //     })
       ],
-    ));
-  }
-}
+    ));*/

@@ -10,7 +10,7 @@ class BottomNav extends StatefulWidget {
 
 class _BottomNav extends State<BottomNav> {
   int selectedIndex = 1;
-  final List<Widget> pages = [history(), mapPage(), settings()];
+  final List<Widget> pages = [History(), myMap(), Settings()];
   void _onItemTapped(int index){
     setState(() {
       selectedIndex = index;

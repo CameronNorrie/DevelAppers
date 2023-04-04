@@ -13,6 +13,7 @@ class _AccountState extends State<Account> {
   String imageUrl ='';
   String lastImage ="";
   String email = "";
+  String lastUsername = "";
   final uid = FirebaseAuth.instance.currentUser?.uid;
   final usernameController = TextEditingController();
   CollectionReference users = FirebaseFirestore.instance.collection('users');
@@ -70,17 +71,32 @@ class _AccountState extends State<Account> {
                     ElevatedButton(
                       onPressed: () async{
                         print(imageUrl);
-                        users.doc(uid).get().then(
+                        await users.doc(uid).get().then(
                           (DocumentSnapshot doc) {
                             final data = doc.data() as Map<String, dynamic>;
                             setState((){
+                              lastUsername = data['username'];
                               lastImage = data['image'];
                               email = data['email'];
                             });
                           }
                         );
                         Map<String, String> dataToSend;
-                        if(imageUrl.isEmpty){
+                        if(imageUrl.isEmpty && usernameController.text == ""){
+                          dataToSend = {
+                            'username': lastUsername,
+                            'email': email,
+                            'image': lastImage
+                          }; 
+                        }
+                        else if(usernameController.text == ""){
+                          dataToSend = {
+                            'username': lastUsername,
+                            'email': email,
+                            'image': imageUrl
+                          };
+                        }
+                        else if(imageUrl.isEmpty){
                           dataToSend = {
                             'username': usernameController.text,
                             'email': email,

@@ -13,11 +13,11 @@ class Settings extends StatefulWidget {
 class _SettingsState extends State<Settings> {
   String username = "";
   String imageUrl = "";
-  bool test = false;
+  final uid = FirebaseAuth.instance.currentUser?.uid;
   @override
   void initState(){
     super.initState();
-    final uid = FirebaseAuth.instance.currentUser?.uid;
+    
     
     DocumentReference thisUser = FirebaseFirestore.instance.collection('users').doc(uid);
     thisUser.get().then(
@@ -73,7 +73,18 @@ class _SettingsState extends State<Settings> {
         trailing: IconButton(icon:Icon(Icons.arrow_forward_ios), onPressed: () async {
           Navigator.push(
             context, MaterialPageRoute(builder: (context) => Account())
-          ).then((value) => setState((){}));
+          ).then((value) => setState((){
+            DocumentReference thisUser = FirebaseFirestore.instance.collection('users').doc(uid);
+            thisUser.get().then(
+              (DocumentSnapshot doc) {
+                final data = doc.data() as Map<String, dynamic>;
+                setState(() {
+                  username = data['username'];
+                  imageUrl = data['image'];
+                });
+              }
+            );
+          }));
           
         },),
       ),
