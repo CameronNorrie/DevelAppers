@@ -21,6 +21,7 @@ class myMap extends StatefulWidget {
 }
 
 class _myMap extends State<myMap> {
+
   Future _addMarkerLongPressed(LatLng latlang) async {
     setState(() {
       final uid = FirebaseAuth.instance.currentUser?.uid;
@@ -44,6 +45,7 @@ class _myMap extends State<myMap> {
       showDialogWithFields(latlang, now, uid);
     });
   }
+
 
   void showDialogWithFields(LatLng latlang, int now, String ?uid) {
     showDialog(
@@ -85,7 +87,6 @@ class _myMap extends State<myMap> {
                   'longitude': latlang.longitude,
                   'id': now.toString()
                 });
-
                 Navigator.pop(context);
               },
               child: Text('Add'),
